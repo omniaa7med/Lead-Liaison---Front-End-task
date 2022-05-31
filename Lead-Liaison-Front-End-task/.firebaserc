@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "lead-liaison-front-end-task": {
+      "hosting": {
+        "Lead-Liaison-Front-End-task": [
+          "lead-liaison-front-end-task"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "lead-liaison-front-end-task"
+  }
+}

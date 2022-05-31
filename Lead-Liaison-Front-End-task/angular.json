@@ -106,6 +106,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "Lead-Liaison-Front-End-task:build:production",
+            "firebaseProject": "lead-liaison-front-end-task",
+            "firebaseHostingSite": "lead-liaison-front-end-task"
+          }
         }
       }
     }
