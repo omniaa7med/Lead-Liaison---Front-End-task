@@ -5,4 +5,4 @@ export interface Product {
   imageUrl?: string;
   slug: string;
   category: string
-}
+}[]
