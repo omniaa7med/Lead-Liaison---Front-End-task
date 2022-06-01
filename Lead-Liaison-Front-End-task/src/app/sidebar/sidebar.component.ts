@@ -11,5 +11,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  allLength = 5;
+  simpleLength = 3;
+  complexLength = 2;
 
 }
