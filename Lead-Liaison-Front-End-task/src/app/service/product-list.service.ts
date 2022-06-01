@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../interfaces/product';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class ProductListService {
 
   constructor(private http: HttpClient,
-    private angularFirestore :AngularFirestore
-    ) { }
+    private angularFirestore: AngularFirestore
+  ) { }
+
+  private cateFilter = new BehaviorSubject(null)
+  cateroryType = this.cateFilter.asObservable()
 
   getProductList() {
     // console.log(this.http.get<Product>(this.configUrl))
@@ -21,5 +25,10 @@ export class ProductListService {
     return this.angularFirestore
       .collection('ProductList')
       .snapshotChanges();
+  }
+
+  sendType(type:any) {
+
+    return this.cateFilter.next(type)
   }
 }
