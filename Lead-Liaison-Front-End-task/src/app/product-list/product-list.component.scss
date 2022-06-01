@@ -3,6 +3,9 @@
 // ----------------------------------------------------------
 
 .productList {
+  width : 85%;
+  margin: 5% auto auto 15%;
+
   &__header {
     display        : flex;
     margin         : 2% 2% 0% 2%;
@@ -32,7 +35,7 @@
   flex-wrap: wrap;
 }
 
- // ----------------------------------------------------------
+// ----------------------------------------------------------
 //                         Product                        -
 // ----------------------------------------------------------
 .product {
@@ -66,5 +69,110 @@
   &__details {
     background-color: #f1f5f8;
     padding         : 7%;
+  }
+}
+
+
+
+// ----------------------------------------------------------
+//                 Media Query  400px and down              -
+// ----------------------------------------------------------
+@media screen and (max-width: 599px) {
+  .productList {
+    width : 100%;
+    margin: 25% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 50%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  500px and down              -
+// ----------------------------------------------------------
+@media screen and (min-width: 600px) {
+  .productList {
+    width : 100%;
+    margin: 15% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 45%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  600px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 600px) {
+  .productList {
+    width : 100%;
+    margin: 12% auto auto 0;
+  }
+
+}
+
+// ----------------------------------------------------------
+//                 Media Query  768px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 768px) {
+  .productList {
+    width : 100%;
+    margin: 10% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 29%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  992px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 992px) {
+  .productList {
+    width : 85%;
+    margin: 8% auto auto 15%;
+  }
+
+  .productList__container {
+    justify-content: start;
+
+    .product {
+      width: 21%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  1000px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 1000px) {
+  .productList {
+    width : 85%;
+    margin: 8% auto auto 15%;
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  1200px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 1200px) {
+  .productList {
+    width : 85%;
+    margin: 6% auto auto 15%;
   }
 }
