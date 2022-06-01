@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from '../interfaces/product';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +29,13 @@ export class ProductListService {
   /* ------------------------------------------------------- */
   /*           Get Product List By RealTimeDatabase          */
   /* ------------------------------------------------------- */
-  getProductListByRealTime() {
+  getProductListByRealTime(): Observable<any> {
     return this.http.get<Product>(this.baseURL);
   }
   /* ------------------------------------------------------- */
   /*              Get Product List By FireStore              */
   /* ------------------------------------------------------- */
-  getProductListByFireStore() {
+  getProductListByFireStore(): Observable<any> {
     return this.angularFirestore.collection('ProductList').snapshotChanges();
   }
   /* ------------------------------------------------------- */

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 
@@ -19,6 +20,7 @@ export class ProductListComponent implements OnInit {
     this.filterProductsByCategory();
     this.getProductListByFireStore();
   }
+
   /* ------------------------------------------------------- */
   /*           Get productList From RealTime DataBase        */
   /* ------------------------------------------------------- */
@@ -60,5 +62,12 @@ export class ProductListComponent implements OnInit {
         console.log(this.products);
       }
     });
+  }
+  /* ------------------------------------------------------- */
+  /*               Fetch Product List By Category           */
+  /* ------------------------------------------------------- */
+  fetchProductList(){
+    this.getProductListByRealTimeDataBase();
+    this.filterProductsByCategory();
   }
 }

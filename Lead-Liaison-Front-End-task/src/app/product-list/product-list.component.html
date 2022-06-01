@@ -4,7 +4,7 @@
 <div class="productList" *ngIf="products.length > 0">
   <div class="productList__header">
     <h2 class="productList__header_title">Products</h2>
-    <button class="productList__header_btn" type="button">Sync</button>
+    <button class="productList__header_btn" type="button" (click)="fetchProductList()">Sync</button>
   </div>
   <!---------------------------------------------------------->
   <!--                     Product                          -->
