@@ -5,30 +5,48 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductListService {
+  /* ------------------------------------------------------- */
+  /*                        Variables                        */
+  /* ------------------------------------------------------- */
+  baseURL: string =
+    'https://lead-liaison-front-end-task-default-rtdb.firebaseio.com/ProductList.json';
 
-  constructor(private http: HttpClient,
+  private cateFilter = new BehaviorSubject(null);
+  cateType = this.cateFilter.asObservable();
+
+  private productListObservable = new BehaviorSubject(null);
+  prodList = this.productListObservable.asObservable();
+
+  constructor(
+    private http: HttpClient,
     private angularFirestore: AngularFirestore
   ) { }
 
-  private cateFilter = new BehaviorSubject(null)
-  cateroryType = this.cateFilter.asObservable()
-
-  getProductList() {
-    // console.log(this.http.get<Product>(this.configUrl))
-    return this.http.get<Product>('https://lead-liaison-front-end-task-default-rtdb.firebaseio.com/ProductList.json');
+  /* ------------------------------------------------------- */
+  /*           Get Product List By RealTimeDatabase          */
+  /* ------------------------------------------------------- */
+  getProductListByRealTime() {
+    return this.http.get<Product>(this.baseURL);
   }
-
-  getUserList() {
-    return this.angularFirestore
-      .collection('ProductList')
-      .snapshotChanges();
+  /* ------------------------------------------------------- */
+  /*              Get Product List By FireStore              */
+  /* ------------------------------------------------------- */
+  getProductListByFireStore() {
+    return this.angularFirestore.collection('ProductList').snapshotChanges();
   }
-
-  sendType(type:any) {
-
-    return this.cateFilter.next(type)
+  /* ------------------------------------------------------- */
+  /*           Get Category Type From SideBar                */
+  /* ------------------------------------------------------- */
+  getCategory(type: any) {
+    return this.cateFilter.next(type);
+  }
+  /* ------------------------------------------------------- */
+  /*           Get Product List From component               */
+  /* ------------------------------------------------------- */
+  getProductList(prodList: any) {
+    return this.productListObservable.next(prodList);
   }
 }

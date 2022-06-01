@@ -1,9 +1,15 @@
-/* Add a black background color to the top navigation */
+// ----------------------------------------------------------
+//                         Navbar                           -
+// ----------------------------------------------------------
 .navbar {
   background-image: linear-gradient(90deg, #1566C0, #23C2DB);
   overflow        : hidden;
   padding         : 14px 16px;
 }
+
+// ----------------------------------------------------------
+//                       Navbar logo                        -
+// ----------------------------------------------------------
 
 .navbar__logo {
   display        : flex;
