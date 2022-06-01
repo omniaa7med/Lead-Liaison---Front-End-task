@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
   // category: string = 'all';
   products: Product[] = [];
 
-  constructor(private ProductListService: ProductListService) {}
+  constructor(private ProductListService: ProductListService) { }
 
   ngOnInit(): void {
     this.getProductList();
@@ -28,10 +28,10 @@ export class SidebarComponent implements OnInit {
     this.products = JSON.parse(localStorage.getItem('ProductList') || '{}');
     this.allLength = this.products.length;
     this.simpleLength = this.products.filter((e) => {
-      return e.category != 'simple';
+      return e.category == 'simple';
     }).length;
     this.complexLength = this.products.filter((e) => {
-      return e.category != 'complex';
+      return e.category == 'complex';
     }).length;
   }
 
