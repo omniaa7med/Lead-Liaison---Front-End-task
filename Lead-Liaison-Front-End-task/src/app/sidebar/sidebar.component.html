@@ -3,11 +3,11 @@
 <!---------------------------------------------------------->
 <aside class="sidebar" *ngIf="this.products.length > 0">
   <h3>Products</h3>
-  <a href="#" (click)="filterProducts('all')">All ({{ allLength }})</a>
-  <a href="#" (click)="filterProducts('simple')"
+  <a [routerLink]="['']" (click)="filterProducts('all')">All ({{ allLength }})</a>
+  <a [routerLink]="['']" (click)="filterProducts('simple')"
     >Simple Tools ({{ simpleLength }})</a
   >
-  <a href="#" (click)="filterProducts('complex')"
+  <a [routerLink]="['']" (click)="filterProducts('complex')"
     >Complex Tools ({{ complexLength }})</a
   >
 </aside>

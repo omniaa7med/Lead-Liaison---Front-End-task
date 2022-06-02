@@ -16,18 +16,21 @@
   <!--                     Product                          -->
   <!---------------------------------------------------------->
   <div class="productList__container">
-    <div class="product" *ngFor="let product of products">
+    <div class="product" *ngFor="let product of products;">
       <span class="product__flag">Sync</span>
       <figure class="product__img">
         <img [src]="product.imageUrl" alt="Avatar" />
       </figure>
       <div class="product__details">
         <h4 class="product__details_name">
-          {{ product.name }}
+          {{ product.name }} -
           {{ product.category }}
         </h4>
-        <p class="product__details_price">{{ product.price }}</p>
+        <p class="product__details_price">{{ product.price }} $</p>
       </div>
+    </div>
+    <div class="product productList__add">
+      <a routerLink="newProduct" type="button" title="add new project">+</a>
     </div>
   </div>
 </div>

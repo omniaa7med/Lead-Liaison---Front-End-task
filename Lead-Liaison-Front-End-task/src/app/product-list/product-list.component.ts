@@ -51,13 +51,13 @@ export class ProductListComponent implements OnInit {
   /* ------------------------------------------------------- */
   getProductListByFireStore() {
     this.productService.getProductListByFireStore().subscribe((res) => {
-      // console.log();
       this.products = res.map((e: any) => {
         return {
           ...(e.payload.doc.data() as Product),
         };
       });
       this.productService.sendProductList(this.products);
+      this.products.sort((a, b) => a.id - b.id)
       sessionStorage.setItem('ProductList', JSON.stringify(this.products));
     });
   }
@@ -66,13 +66,9 @@ export class ProductListComponent implements OnInit {
   /* ------------------------------------------------------- */
   filterProductsByCategory() {
     this.productService.cateType.subscribe((e) => {
-      if (e !== null) {
-        this.products = JSON.parse(
-          sessionStorage.getItem('ProductList') || '{}'
-        );
-        if (e !== 'all') {
-          this.products = this.products.filter((prod) => prod.category === e);
-        }
+      this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
+      if (e !== null && e !== 'all') {
+        this.products = this.products.filter((prod) => prod.category === e);
       }
     });
   }
@@ -82,6 +78,7 @@ export class ProductListComponent implements OnInit {
   fetchProductList() {
     sessionStorage.removeItem('ProductList');
     // this.getProductListByRealTimeDataBase();
+    this.productService.sendCategory('all');
     this.getProductListByFireStore();
     this.filterProductsByCategory();
   }

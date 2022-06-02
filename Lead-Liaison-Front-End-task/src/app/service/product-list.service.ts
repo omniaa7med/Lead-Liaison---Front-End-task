@@ -39,6 +39,7 @@ export class ProductListService {
   /*              Get Product List By FireStore              */
   /* ------------------------------------------------------- */
   getProductListByFireStore(): Observable<any> {
+
     return this.angularFirestore.collection('ProductList').snapshotChanges();
   }
   /* ------------------------------------------------------- */
@@ -53,12 +54,15 @@ export class ProductListService {
   sendProductList(prodList: any) {
     return this.productListObservable.next(prodList);
   }
+  /* ------------------------------------------------------- */
+  /*              Add New Product To DataBase               */
+  /* ------------------------------------------------------- */
 
-  createUser(user: Product) {
+  createProduct(Product: Product) {
     return new Promise<any>((resolve, reject) => {
       this.angularFirestore
         .collection('ProductList')
-        .add(user)
+        .add(Product)
         .then(
           (response) => {
             console.log(response);
