@@ -1,8 +1,10 @@
 // ----------------------------------------------------------
 //                       productList                        -
 // ----------------------------------------------------------
-
 .productList {
+  width : 85%;
+  margin: 2% auto auto 15%;
+
   &__header {
     display        : flex;
     margin         : 2% 2% 0% 2%;
@@ -22,18 +24,43 @@
       cursor          : pointer;
     }
   }
+
+  &__add {
+    box-shadow     : none !important;
+    display        : flex;
+    justify-content: center;
+
+    a {
+      color           : white;
+      background-color: #ffc400;
+      border          : none;
+      border-radius   : 53px;
+      box-shadow      : 0 4px 8px 0 lightgrey;
+      height          : 90px;
+      width           : 90px;
+      display         : flex;
+      justify-content : center;
+      text-decoration : none;
+      font-size       : 50px;
+      font-weight     : 900;
+      align-items     : center;
+    }
+
+  }
 }
+
 
 // ----------------------------------------------------------
 //                 productList Container                    -
 // ----------------------------------------------------------
 .productList__container {
-  display  : flex;
-  flex-wrap: wrap;
+  display    : flex;
+  flex-wrap  : wrap;
+  align-items: center;
 }
 
- // ----------------------------------------------------------
-//                         Product                        -
+// ----------------------------------------------------------
+//                         Product                          -
 // ----------------------------------------------------------
 .product {
   box-shadow   : 0 4px 8px 0 rgb(0 0 0 / 20%);
@@ -68,3 +95,122 @@
     padding         : 7%;
   }
 }
+
+// ----------------------------------------------------------
+//                         Loader                          -
+// ----------------------------------------------------------
+.loader {
+  border           : 16px solid #f3f3f3;
+  border-radius    : 50%;
+  border-top       : 16px solid #3498db;
+  width            : 120px;
+  height           : 120px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation        : spin 2s linear infinite;
+  margin           : auto;
+  position         : absolute;
+  top              : 50%;
+  left             : 50%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------
+//                 Media Query  400px and down              -
+// ----------------------------------------------------------
+@media screen and (max-width: 599px) {
+  .productList {
+    width : 100%;
+    margin: 2% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 50%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  600px and down              -
+// ----------------------------------------------------------
+@media screen and (min-width: 600px) {
+  .productList {
+    width : 100%;
+    margin: 2% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 45%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  768px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 768px) {
+  .productList {
+    width : 100%;
+    margin: 2% auto auto 0;
+  }
+
+  .productList__container {
+    justify-content: center;
+
+    .product {
+      width: 29%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+//                 Media Query  992px and up                -
+// ----------------------------------------------------------
+@media screen and (min-width: 992px) {
+  .productList {
+    width : 85%;
+    margin: 2% auto auto 15%;
+  }
+
+  .productList__container {
+    justify-content: start;
+
+    .product {
+      width: 21%;
+    }
+  }
+}
+

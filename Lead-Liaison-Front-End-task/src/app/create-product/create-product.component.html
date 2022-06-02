@@ -1,0 +1,75 @@
+<div class="newProduct___container">
+  <div class="newProduct___container_form">
+    <form [formGroup]="reactiveForm" #form="ngForm">
+      <div class="newProduct___container_form__image">
+        <img [src]="imageSrc" *ngIf="imageSrc" alt="new image of product" />
+        <div class="newProduct___container_form__Uploadimage">
+          <label for="file">File:</label>
+          <input
+            formControlName="file"
+            id="file"
+            type="file"
+            (change)="onFileChange($event)"
+            title="upload product image"
+          />
+        </div>
+      </div>
+      <div class="flex newProduct___container_form__name">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          formControlName="name"
+          placeholder="Enter Name of Product"
+          required
+        />
+      </div>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors?.['required']">This field is required.</div>
+      </div>
+      <div class="flex newProduct___container_form__category">
+        <label for="category">category:</label>
+        <select id="category" (change)="getCategory($event)" required>
+          <option value="">Select Category of Product</option>
+          <option value="simple">Simple</option>
+          <option value="complex">Complex</option>
+        </select>
+      </div>
+      <div *ngIf="category.invalid && (category.dirty || category.touched)">
+        <div>{{ errorMessage }}</div>
+      </div>
+      <div class="flex newProduct___container_form__slug">
+        <label for="slug" class="form-label">slug:</label>
+        <input
+          type="text"
+          id="slug"
+          name="slug"
+          formControlName="slug"
+          placeholder="Enter Slug of Product"
+        />
+      </div>
+      <div *ngIf="slug.invalid && (slug.dirty || slug.touched)">
+        <div *ngIf="slug.errors?.['required']">This field is required.</div>
+      </div>
+      <div class="flex newProduct___container_form__price">
+        <label for="price">price:</label>
+        <input
+          type="number"
+          id="price"
+          name="price"
+          formControlName="price"
+          placeholder="Enter Price of Product"
+        />
+      </div>
+      <div *ngIf="price.invalid && (price.dirty || price.touched)">
+        <div *ngIf="price.errors?.['required']">This field is required.</div>
+      </div>
+      <div class="newProduct___container_form__submit">
+        <button type="button" (click)="addNewProduct()">
+          Create New Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
