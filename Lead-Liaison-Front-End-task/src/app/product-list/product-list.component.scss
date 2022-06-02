@@ -4,7 +4,7 @@
 
 .productList {
   width : 85%;
-  margin: 5% auto auto 15%;
+  margin: 2% auto auto 15%;
 
   &__header {
     display        : flex;
@@ -72,7 +72,30 @@
   }
 }
 
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 // ----------------------------------------------------------
 //                 Media Query  400px and down              -
@@ -80,7 +103,7 @@
 @media screen and (max-width: 599px) {
   .productList {
     width : 100%;
-    margin: 25% auto auto 0;
+    margin: 2% auto auto 0;
   }
 
   .productList__container {
@@ -98,7 +121,7 @@
 @media screen and (min-width: 600px) {
   .productList {
     width : 100%;
-    margin: 15% auto auto 0;
+    margin: 2% auto auto 0;
   }
 
   .productList__container {
@@ -116,7 +139,7 @@
 @media screen and (min-width: 600px) {
   .productList {
     width : 100%;
-    margin: 12% auto auto 0;
+    margin: 2% auto auto 0;
   }
 
 }
@@ -127,7 +150,7 @@
 @media screen and (min-width: 768px) {
   .productList {
     width : 100%;
-    margin: 10% auto auto 0;
+    margin: 2% auto auto 0;
   }
 
   .productList__container {
@@ -145,7 +168,7 @@
 @media screen and (min-width: 992px) {
   .productList {
     width : 85%;
-    margin: 8% auto auto 15%;
+    margin: 2% auto auto 15%;
   }
 
   .productList__container {
@@ -160,19 +183,19 @@
 // ----------------------------------------------------------
 //                 Media Query  1000px and up                -
 // ----------------------------------------------------------
-@media screen and (min-width: 1000px) {
-  .productList {
-    width : 85%;
-    margin: 8% auto auto 15%;
-  }
-}
+// @media screen and (min-width: 1000px) {
+//   .productList {
+//     width : 85%;
+//     margin: 2% auto auto 15%;
+//   }
+// }
 
 // ----------------------------------------------------------
 //                 Media Query  1200px and up                -
 // ----------------------------------------------------------
-@media screen and (min-width: 1200px) {
-  .productList {
-    width : 85%;
-    margin: 6% auto auto 15%;
-  }
-}
+// @media screen and (min-width: 1200px) {
+//   .productList {
+//     width : 85%;
+//     margin: 2% auto auto 15%;
+//   }
+// }

@@ -1,10 +1,8 @@
 <!---------------------------------------------------------->
 <!--               SideBar Filter By Category             -->
 <!---------------------------------------------------------->
-<aside class="sidebar">
-  <h3>
-    Products
-  </h3>
+<aside class="sidebar" *ngIf="this.products.length > 0">
+  <h3>Products</h3>
   <a href="#" (click)="filterProducts('all')">All ({{ allLength }})</a>
   <a href="#" (click)="filterProducts('simple')"
     >Simple Tools ({{ simpleLength }})</a

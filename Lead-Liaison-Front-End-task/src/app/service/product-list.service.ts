@@ -4,6 +4,7 @@ import { Product } from '../interfaces/product';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
+import { getDatabase, ref, push, set } from "firebase/database";
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,8 @@ export class ProductListService {
   /* ------------------------------------------------------- */
   /*                        Variables                        */
   /* ------------------------------------------------------- */
+  db = getDatabase();
+
   baseURL: string =
     'https://lead-liaison-front-end-task-default-rtdb.firebaseio.com/ProductList.json';
 
@@ -41,13 +44,27 @@ export class ProductListService {
   /* ------------------------------------------------------- */
   /*           Get Category Type From SideBar                */
   /* ------------------------------------------------------- */
-  getCategory(type: any) {
+  sendCategory(type: any) {
     return this.cateFilter.next(type);
   }
   /* ------------------------------------------------------- */
   /*           Get Product List From component               */
   /* ------------------------------------------------------- */
-  getProductList(prodList: any) {
+  sendProductList(prodList: any) {
     return this.productListObservable.next(prodList);
+  }
+
+  createUser(user: Product) {
+    return new Promise<any>((resolve, reject) => {
+      this.angularFirestore
+        .collection('ProductList')
+        .add(user)
+        .then(
+          (response) => {
+            console.log(response);
+          },
+          (error) => reject(error)
+        );
+    });
   }
 }
