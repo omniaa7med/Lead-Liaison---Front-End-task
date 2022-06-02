@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -27,8 +28,6 @@ export class CreateProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.ProductListService.createProduct(this.product));
-
     this.getProductList();
     this.reactiveForm = new FormGroup({
       name: new FormControl(this.product.name, [Validators.required]),
@@ -81,7 +80,7 @@ export class CreateProductComponent implements OnInit {
   /* ------------------------------------------------------- */
 
   getCategory(e: any) {
-    console.log(e);
+    // console.log(e);
     if (e.target.value !== '') {
       this.product.category = e.target.value;
       this.errorMessage = '';
@@ -91,10 +90,7 @@ export class CreateProductComponent implements OnInit {
   /*                Add New Product Form                     */
   /* ------------------------------------------------------- */
   addNewProduct(): void {
-    console.log(this.products);
-
     this.reactiveForm.value.category = this.product.category;
-    console.log(this.reactiveForm);
     if (this.reactiveForm.invalid) {
       for (const control of Object.keys(this.reactiveForm.controls)) {
         this.reactiveForm.controls[control].markAsTouched();
@@ -122,21 +118,28 @@ export class CreateProductComponent implements OnInit {
       slug: this.reactiveForm.value.slug,
       category: this.reactiveForm.value.category,
     };
-    this.ProductListService.createProduct(this.product);
-    this.getProductList();
-    this.router.navigate(['']);
+    // this.ProductListService.createProduct(this.product);
+    this.ProductListService.createProduct(this.product).then(() => {
+      console.log('Created new Product successfully!');
+      this.getProductList();
+      this.router.navigate(['']);
+    });
   }
   /* ------------------------------------------------------- */
   /*                 Get ProductList From DataBase            */
   /* ------------------------------------------------------- */
   getProductList() {
-    this.ProductListService.getProductListByFireStore().subscribe((res) => {
-      this.products = res.map((e: any) => {
-        return {
-          ...(e.payload.doc.data() as Product),
-        };
+    this.ProductListService.getProductListByRealTime()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      )
+      .subscribe((data: any) => {
+        this.products = data;
+        this.products.sort((a, b) => a.id - b.id);
+        sessionStorage.setItem('ProductList', JSON.stringify(this.products));
       });
-      sessionStorage.setItem('ProductList', JSON.stringify(this.products));
-    });
   }
 }

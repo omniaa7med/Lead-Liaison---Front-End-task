@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 @Component({
@@ -29,15 +30,19 @@ export class SidebarComponent implements OnInit {
       this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
       this.FilterCategory();
     } else {
-      this.ProductListService.getProductListByFireStore().subscribe((res) => {
-        this.products = res.map((e: any) => {
-          return {
-            ...(e.payload.doc.data() as Product),
-          };
+      this.ProductListService.getProductListByRealTime()
+        .snapshotChanges()
+        .pipe(
+          map((changes) =>
+            changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        )
+        .subscribe((data: any) => {
+          this.products = data;
+          sessionStorage.setItem('ProductList', JSON.stringify(this.products));
+          this.FilterCategory();
+          sessionStorage.setItem('ProductList', JSON.stringify(this.products));
         });
-        this.FilterCategory();
-        sessionStorage.setItem('ProductList', JSON.stringify(this.products));
-      });
     }
   }
 
