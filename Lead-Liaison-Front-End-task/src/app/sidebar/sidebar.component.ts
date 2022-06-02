@@ -21,6 +21,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.getProductList();
   }
+
+
   /* ------------------------------------------------------- */
   /*                    Get Product List                     */
   /* ------------------------------------------------------- */

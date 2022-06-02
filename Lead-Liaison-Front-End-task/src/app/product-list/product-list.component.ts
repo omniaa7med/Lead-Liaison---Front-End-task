@@ -16,11 +16,21 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productService: ProductListService) { }
   ngOnInit(): void {
-    this.getProductListByRealTimeDataBase();
-    this.filterProductsByCategory();
-    this.getProductListByFireStore();
-  }
+    if (JSON.parse(localStorage.getItem('ProductList') || '{}').length > 0) {
+      this.products = JSON.parse(localStorage.getItem('ProductList') || '{}')
+      this.productService.getProductList(this.products);
+      this.filterProductsByCategory();
+      // this.getProductListByFireStore();
+    } else {
+      this.getProductListByRealTimeDataBase();
+      this.filterProductsByCategory();
+      // this.getProductListByFireStore();
+    }
 
+  }
+  ngOnDestroy() {
+    localStorage.clear()
+  }
   /* ------------------------------------------------------- */
   /*           Get productList From RealTime DataBase        */
   /* ------------------------------------------------------- */
@@ -55,18 +65,19 @@ export class ProductListComponent implements OnInit {
   /* ------------------------------------------------------- */
   filterProductsByCategory() {
     this.productService.cateType.subscribe((e) => {
-      // console.log(JSON.parse(localStorage.getItem('ProductList') || '{}'));
-      this.products = JSON.parse(localStorage.getItem('ProductList') || '{}')
-      if (e != 'all') {
-        this.products = this.products.filter((prod) => prod.category === e);
-        console.log(this.products);
+      if (e !== null) {
+        this.products = JSON.parse(localStorage.getItem('ProductList') || '{}')
+        if (e != 'all') {
+          this.products = this.products.filter((prod) => prod.category === e);
+          console.log(this.products);
+        }
       }
     });
   }
   /* ------------------------------------------------------- */
   /*               Fetch Product List By Category           */
   /* ------------------------------------------------------- */
-  fetchProductList(){
+  fetchProductList() {
     this.getProductListByRealTimeDataBase();
     this.filterProductsByCategory();
   }
