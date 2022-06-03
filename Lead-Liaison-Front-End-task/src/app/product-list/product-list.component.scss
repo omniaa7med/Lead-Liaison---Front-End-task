@@ -61,11 +61,11 @@
 //                         Product                          -
 // ----------------------------------------------------------
 .product {
-  box-shadow   : 0 4px 8px 0 rgb(0 0 0 / 20%);
-  width        : 21%;
-  margin       : 2%;
-  text-align   : center;
-  position: relative;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  width     : 21%;
+  margin    : 2%;
+  text-align: center;
+  position  : relative;
 
   &__flag {
     background-color: #24c5dc;
@@ -85,7 +85,7 @@
 
     img {
       max-width: 100%;
-      width: 100%;
+      width    : 100%;
     }
   }
 
@@ -94,14 +94,15 @@
     padding         : 7%;
 
   }
-  &__available{
-    position: absolute;
-    top: 65%;
-    left: 0;
-    right: 0;
+
+  &__available {
+    position  : absolute;
+    top       : 65%;
+    left      : 0;
+    right     : 0;
     background: #24c5dc;
-    color: white;
-    opacity: 0.6;
+    color     : white;
+    opacity   : 0.6;
   }
 }
 
