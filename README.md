@@ -1,6 +1,6 @@
 # Lead-Liaison---Front-End-task
 # Angular 13 
-# Firebase
+# Firebase-RealTime Database
 Home page that load a list of product 
 - a responsive Angular application not use any css framework
 - Host the dummy data as JSON file using Firebase Real-Time Database.
