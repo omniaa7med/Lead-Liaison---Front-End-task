@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 @Component({
@@ -17,13 +17,17 @@ export class SidebarComponent implements OnInit {
   complexLength!: Number;
   category: string = 'all';
   products: Product[] = [];
+  unsubscribe$ = new Subject<void>();
 
   constructor(private ProductListService: ProductListService) {}
 
   ngOnInit(): void {
     this.getProductList();
   }
-
+  OnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
   /* ------------------------------------------------------- */
   /*                    Get Product List                     */
   /* ------------------------------------------------------- */
@@ -38,13 +42,13 @@ export class SidebarComponent implements OnInit {
         .pipe(
           map((changes) =>
             changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-          )
+          ),
+          takeUntil(this.unsubscribe$)
         )
         .subscribe((data: any) => {
           this.products = data;
           sessionStorage.setItem('ProductList', JSON.stringify(this.products));
           this.FilterCategory();
-          sessionStorage.setItem('ProductList', JSON.stringify(this.products));
         });
     }
   }

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -20,6 +20,8 @@ export class CreateProductComponent implements OnInit {
   imageSrc: string =
     'https://jshs.tu.edu.ly/wp-content/uploads/2020/02/placeholder.png';
   errorMessage: string = 'This field is required';
+  unsubscribe$ = new Subject<void>();
+
   constructor(
     private ProductListService: ProductListService,
     private router: Router
@@ -38,6 +40,12 @@ export class CreateProductComponent implements OnInit {
       fileSource: new FormControl('', [Validators.required]),
     });
   }
+
+  OnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   /* ------------------------------------------------------- */
   /*                Upload Product Image Functionality       */
   /* ------------------------------------------------------- */
@@ -134,7 +142,8 @@ export class CreateProductComponent implements OnInit {
       .pipe(
         map((changes) =>
           changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-        )
+        ),
+        takeUntil(this.unsubscribe$)
       )
       .subscribe((data: any) => {
         this.products = data;

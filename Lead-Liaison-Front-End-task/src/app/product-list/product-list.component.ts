@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { map, Subject } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
 
@@ -15,8 +15,9 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
   productAvailable: any = [];
+  unsubscribe$ = new Subject<void>();
 
-  constructor(private productService: ProductListService) {}
+  constructor(private productService: ProductListService) { }
 
   ngOnInit(): void {
     if (JSON.parse(sessionStorage.getItem('ProductList') || '{}').length > 0) {
@@ -31,21 +32,25 @@ export class ProductListComponent implements OnInit {
 
   OnDestroy(): void {
     sessionStorage.removeItem('ProductList');
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+
   }
+
 
   /* ------------------------------------------------------- */
   /*           Get productList From RealTime DataBase        */
   /* ------------------------------------------------------- */
-
   getProductListByRealTimeDataBase() {
     this.productService
       .getProductListByRealTime()
       .snapshotChanges()
-      .pipe(
+      .pipe((
         map((changes) =>
           changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
-      )
+
+      ), (takeUntil(this.unsubscribe$)))
       .subscribe((data: any) => {
         this.products = data;
         // console.log(this.products);
@@ -103,11 +108,11 @@ export class ProductListComponent implements OnInit {
     this.productService
       .getProductListByRealTime()
       .snapshotChanges()
-      .pipe(
+      .pipe((
         map((changes) =>
           changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
-      )
+      ), (takeUntil(this.unsubscribe$)))
       .subscribe((data) => {
         this.productAvailable = data.filter((e) => {
           return e.key === product.key;
