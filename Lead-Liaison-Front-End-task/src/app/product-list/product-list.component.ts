@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   /* ------------------------------------------------------- */
 
   products: Product[] = [];
+  productAvailable: any = [];
 
   constructor(private productService: ProductListService) {}
 
@@ -47,6 +48,7 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.products = data;
+        // console.log(this.products);
         this.products.sort((a, b) => a.id - b.id);
         sessionStorage.setItem('ProductList', JSON.stringify(this.products));
       });
@@ -91,5 +93,25 @@ export class ProductListComponent implements OnInit {
     this.productService.sendCategory('all');
     this.getProductListByRealTimeDataBase();
     this.filterProductsByCategory();
+    this.productAvailable = [];
+  }
+
+  /* ------------------------------------------------------- */
+  /*               Sync Specific Product Btn                 */
+  /* ------------------------------------------------------- */
+  syncProductBtn(product: any) {
+    this.productService
+      .getProductListByRealTime()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      )
+      .subscribe((data) => {
+        this.productAvailable = data.filter((e) => {
+          return e.key === product.key;
+        });
+      });
   }
 }
