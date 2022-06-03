@@ -12,9 +12,10 @@ export class ProductListComponent implements OnInit {
   /* ------------------------------------------------------- */
   /*                        Variables                        */
   /* ------------------------------------------------------- */
+
   products: Product[] = [];
 
-  constructor(private productService: ProductListService) { }
+  constructor(private productService: ProductListService) {}
 
   ngOnInit(): void {
     if (JSON.parse(sessionStorage.getItem('ProductList') || '{}').length > 0) {
@@ -26,12 +27,15 @@ export class ProductListComponent implements OnInit {
       this.filterProductsByCategory();
     }
   }
+
   OnDestroy(): void {
     sessionStorage.removeItem('ProductList');
   }
+
   /* ------------------------------------------------------- */
   /*           Get productList From RealTime DataBase        */
   /* ------------------------------------------------------- */
+
   getProductListByRealTimeDataBase() {
     this.productService
       .getProductListByRealTime()
@@ -47,9 +51,11 @@ export class ProductListComponent implements OnInit {
         sessionStorage.setItem('ProductList', JSON.stringify(this.products));
       });
   }
+
   /* ------------------------------------------------------- */
   /*        Get productList From FireStore Database          */
   /* ------------------------------------------------------- */
+
   // getProductListByFireStore() {
   //   this.productService.getProductListByFireStore().subscribe((res) => {
   //     this.products = res.map((e: any) => {
@@ -62,9 +68,11 @@ export class ProductListComponent implements OnInit {
   //     sessionStorage.setItem('ProductList', JSON.stringify(this.products));
   //   });
   // }
+
   /* ------------------------------------------------------- */
   /*               Filter Product List By Category           */
   /* ------------------------------------------------------- */
+
   filterProductsByCategory() {
     this.productService.cateType.subscribe((e) => {
       this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
@@ -73,9 +81,11 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
+
   /* ------------------------------------------------------- */
-  /*               Fetch Product List By Category           */
+  /*               Fetch Product List By Category            */
   /* ------------------------------------------------------- */
+
   fetchProductList() {
     sessionStorage.removeItem('ProductList');
     this.productService.sendCategory('all');

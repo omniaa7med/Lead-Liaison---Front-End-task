@@ -45,10 +45,8 @@
       font-weight     : 900;
       align-items     : center;
     }
-
   }
 }
-
 
 // ----------------------------------------------------------
 //                 productList Container                    -
@@ -86,9 +84,7 @@
     img {
       max-width: 100%;
     }
-
   }
-
 
   &__details {
     background-color: #f1f5f8;
@@ -134,13 +130,6 @@
     transform: rotate(360deg);
   }
 }
-
-
-
-
-
-
-
 
 // ----------------------------------------------------------
 //                 Media Query  400px and down              -
@@ -213,4 +202,3 @@
     }
   }
 }
-
