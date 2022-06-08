@@ -21,7 +21,7 @@
         Sync
       </button>
       <figure class="product__img">
-        <img [src]="product.imageUrl" alt="Avatar" />
+        <img [src]="product.imageUrl?product.imageUrl:imageSrc" alt="Avatar" />
       </figure>
       <div class="product__available" *ngIf="this.productAvailable.length > 0">
         <h4 *ngIf="this.productAvailable[0].id === product.id">Available</h4>

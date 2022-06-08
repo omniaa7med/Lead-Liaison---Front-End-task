@@ -16,7 +16,8 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   productAvailable: any = [];
   unsubscribe$ = new Subject<void>();
-
+  imageSrc: string =
+  'https://www.cera.org.au/wp-content/uploads/2021/06/placeholder-images-image_large.png';
   constructor(private productService: ProductListService) { }
 
   ngOnInit(): void {
