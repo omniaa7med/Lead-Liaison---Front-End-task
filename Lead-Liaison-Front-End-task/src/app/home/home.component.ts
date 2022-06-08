@@ -15,4 +15,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  ngDoCheck(): void {
+    if (this.products.length === 0) {
+      this.products = this.productService.getFromSessionStorage();
+    }
+  }
 }

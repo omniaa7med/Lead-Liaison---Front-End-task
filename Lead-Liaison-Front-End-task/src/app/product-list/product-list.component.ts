@@ -25,6 +25,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.products = this.productService.getFromSessionStorage();
     this.filterProductsByCategory();
   }
+  ngDoCheck(): void {
+    // console.log(this.products);
+    if (this.products.length === 0) {
+      this.products = this.productService.getFromSessionStorage();
+      this.filterProductsByCategory();
+    }
+  }
 
   ngOnDestroy(): void {
     sessionStorage.removeItem('ProductList');

@@ -88,7 +88,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   /* ------------------------------------------------------- */
 
   getCategory(e: any) {
-    // console.log(e);
     if (e.target.value !== '') {
       this.product.category = e.target.value;
       this.errorMessage = '';
@@ -113,8 +112,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     }
     for (const product of Object.values(this.reactiveForm.value)) {
       if (product) {
-        console.log(this.reactiveForm.value);
-        console.log(count);
         count++;
       }
     }
