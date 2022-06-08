@@ -8,7 +8,7 @@ import { ProductListService } from '../service/product-list.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   /* ------------------------------------------------------- */
   /*                        Variables                        */
   /* ------------------------------------------------------- */
@@ -17,27 +17,20 @@ export class ProductListComponent implements OnInit {
   productAvailable: any = [];
   unsubscribe$ = new Subject<void>();
   imageSrc: string =
-  'https://www.cera.org.au/wp-content/uploads/2021/06/placeholder-images-image_large.png';
-  constructor(private productService: ProductListService) { }
+    'https://www.cera.org.au/wp-content/uploads/2021/06/placeholder-images-image_large.png';
+  constructor(private productService: ProductListService) {}
 
   ngOnInit(): void {
-    if (JSON.parse(sessionStorage.getItem('ProductList') || '{}').length > 0) {
-      this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
-      this.products.sort((a, b) => a.id - b.id);
-      this.filterProductsByCategory();
-    } else {
-      this.getProductListByRealTimeDataBase();
-      this.filterProductsByCategory();
-    }
+    this.productService.sendCategory('all');
+    this.products = this.productService.getFromSessionStorage();
+    this.filterProductsByCategory();
   }
 
-  OnDestroy(): void {
+  ngOnDestroy(): void {
     sessionStorage.removeItem('ProductList');
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-
   }
-
 
   /* ------------------------------------------------------- */
   /*           Get productList From RealTime DataBase        */
@@ -46,17 +39,16 @@ export class ProductListComponent implements OnInit {
     this.productService
       .getProductListByRealTime()
       .snapshotChanges()
-      .pipe((
+      .pipe(
         map((changes) =>
           changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-        )
-
-      ), (takeUntil(this.unsubscribe$)))
+        ),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe((data: any) => {
         this.products = data;
-        // console.log(this.products);
         this.products.sort((a, b) => a.id - b.id);
-        sessionStorage.setItem('ProductList', JSON.stringify(this.products));
+        this.productService.setIntSessionStorage(this.products);
       });
   }
 
@@ -73,7 +65,7 @@ export class ProductListComponent implements OnInit {
   //     });
   //     this.productService.sendProductList(this.products);
   //     this.products.sort((a, b) => a.id - b.id);
-  //     sessionStorage.setItem('ProductList', JSON.stringify(this.products));
+  //     this.productService.setIntSessionStorage(this.products);
   //   });
   // }
 
@@ -83,8 +75,8 @@ export class ProductListComponent implements OnInit {
 
   filterProductsByCategory() {
     this.productService.cateType.subscribe((e) => {
-      this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
-      if (e !== null && e !== 'all') {
+      this.products = this.productService.getFromSessionStorage();
+      if (e !== null && e !== 'all' && this.products.length > 0) {
         this.products = this.products.filter((prod) => prod.category === e);
       }
     });
@@ -109,11 +101,12 @@ export class ProductListComponent implements OnInit {
     this.productService
       .getProductListByRealTime()
       .snapshotChanges()
-      .pipe((
+      .pipe(
         map((changes) =>
           changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-        )
-      ), (takeUntil(this.unsubscribe$)))
+        ),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe((data) => {
         this.productAvailable = data.filter((e) => {
           return e.key === product.key;

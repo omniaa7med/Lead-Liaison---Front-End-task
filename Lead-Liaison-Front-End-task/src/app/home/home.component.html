@@ -1,2 +1,6 @@
-<app-sidebar></app-sidebar>
-<app-product-list></app-product-list>
+<div class="d-grid" *ngIf="products.length > 0">
+  <app-sidebar></app-sidebar>
+  <app-product-list></app-product-list>
+</div>
+<!-- {{products}} -->
+<div class="loader" *ngIf="products.length === 0"></div>

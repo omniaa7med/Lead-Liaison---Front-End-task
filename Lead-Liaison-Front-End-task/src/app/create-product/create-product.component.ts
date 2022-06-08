@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
@@ -10,7 +10,7 @@ import { map, Subject, takeUntil } from 'rxjs';
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent implements OnInit, OnDestroy {
   /* ------------------------------------------------------- */
   /*                        Variables                        */
   /* ------------------------------------------------------- */
@@ -36,12 +36,12 @@ export class CreateProductComponent implements OnInit {
       category: new FormControl(this.product.category, [Validators.required]),
       slug: new FormControl(this.product.slug, [Validators.required]),
       price: new FormControl(this.product.price, [Validators.required]),
-      file: new FormControl('', [Validators.required]),
-      fileSource: new FormControl('', [Validators.required]),
+      file: new FormControl(null, [Validators.required]),
+      fileSource: new FormControl(null, [Validators.required]),
     });
   }
 
-  OnDestroy(): void {
+  ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
@@ -105,13 +105,21 @@ export class CreateProductComponent implements OnInit {
       }
     }
     let count: number = 0;
+    if (
+      this.reactiveForm.value.file === null &&
+      this.reactiveForm.value.fileSource === null
+    ) {
+      count = 2;
+    }
     for (const product of Object.values(this.reactiveForm.value)) {
       if (product) {
+        console.log(this.reactiveForm.value);
+        console.log(count);
         count++;
       }
-      if (count === 6) {
-        this.createProduct();
-      }
+    }
+    if (count === 6) {
+      this.createProduct();
     }
   }
   /* ------------------------------------------------------- */
@@ -148,7 +156,7 @@ export class CreateProductComponent implements OnInit {
       .subscribe((data: any) => {
         this.products = data;
         this.products.sort((a, b) => a.id - b.id);
-        sessionStorage.setItem('ProductList', JSON.stringify(this.products));
+        this.ProductListService.setIntSessionStorage(this.products);
       });
   }
 }

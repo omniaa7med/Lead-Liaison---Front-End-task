@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, Subject, takeUntil } from 'rxjs';
 import { Product } from '../interfaces/product';
 import { ProductListService } from '../service/product-list.service';
@@ -7,7 +7,7 @@ import { ProductListService } from '../service/product-list.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   /* ------------------------------------------------------- */
   /*                         Variables                       */
   /* ------------------------------------------------------- */
@@ -24,7 +24,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.getProductList();
   }
-  OnDestroy(): void {
+
+  ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
@@ -33,31 +34,31 @@ export class SidebarComponent implements OnInit {
   /* ------------------------------------------------------- */
 
   getProductList() {
-    if (JSON.parse(sessionStorage.getItem('ProductList') || '{}').length > 0) {
-      this.products = JSON.parse(sessionStorage.getItem('ProductList') || '{}');
-      this.FilterCategory();
-    } else {
-      this.ProductListService.getProductListByRealTime()
-        .snapshotChanges()
-        .pipe(
-          map((changes) =>
-            changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-          ),
-          takeUntil(this.unsubscribe$)
-        )
-        .subscribe((data: any) => {
-          this.products = data;
-          sessionStorage.setItem('ProductList', JSON.stringify(this.products));
-          this.FilterCategory();
-        });
-    }
+    // if (this.ProductListService.getFromSessionStorage().length > 0) {
+      this.products = this.ProductListService.getFromSessionStorage();
+      this.ByFilterCategory();
+    // } else {
+    //   this.ProductListService.getProductListByRealTime()
+    //     .snapshotChanges()
+    //     .pipe(
+    //       map((changes) =>
+    //         changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+    //       ),
+    //       takeUntil(this.unsubscribe$)
+    //     )
+    //     .subscribe((data: any) => {
+    //       this.products = data;
+    //       this.ProductListService.setIntSessionStorage(this.products);
+    //       this.ByFilterCategory();
+    //     });
+    // }
   }
 
   /* ------------------------------------------------------- */
   /*           Filter Product List By Category               */
   /* ------------------------------------------------------- */
 
-  FilterCategory() {
+  ByFilterCategory() {
     if (this.products.length > 0) {
       this.allLength = this.products.length;
       this.simpleLength = this.products.filter((e) => {
@@ -70,6 +71,6 @@ export class SidebarComponent implements OnInit {
   }
 
   filterProducts(cate: string) {
-    this.ProductListService.sendCategory(cate);
+      this.ProductListService.sendCategory(cate);
   }
 }

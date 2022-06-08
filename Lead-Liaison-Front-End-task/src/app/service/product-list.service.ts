@@ -9,6 +9,7 @@ import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,7 @@ export class ProductListService {
 
   private productListObservable = new BehaviorSubject(null);
   prodList = this.productListObservable.asObservable();
+
   private dbPath = '/ProductList';
   productListRef: AngularFireList<Product>;
 
@@ -37,7 +39,34 @@ export class ProductListService {
   ) {
     this.productListRef = db.list(this.dbPath);
   }
-
+  /* ------------------------------------------------------- */
+  /*           Get Products From session Storage              */
+  /* ------------------------------------------------------- */
+  getFromSessionStorage() {
+    if (
+      JSON.parse(sessionStorage.getItem('ProductList') || '[]').length === 0
+    ) {
+      this.getProductListByRealTime()
+        .snapshotChanges()
+        .pipe(
+          map((changes) =>
+            changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+          )
+        )
+        .subscribe((data: any) => {
+          this.setIntSessionStorage(data.sort((a: any, b: any) => a.id - b.id));
+        });
+      return JSON.parse(sessionStorage.getItem('ProductList') || '[]');
+    } else {
+      return JSON.parse(sessionStorage.getItem('ProductList') || '[]');
+    }
+  }
+  /* ------------------------------------------------------- */
+  /*            Set Products in session Storage          */
+  /* ------------------------------------------------------- */
+  setIntSessionStorage(products: Product[]) {
+    sessionStorage.setItem('ProductList', JSON.stringify(products));
+  }
   /* ------------------------------------------------------- */
   /*           Get Product List By RealTimeDatabase          */
   /* ------------------------------------------------------- */
