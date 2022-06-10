@@ -35,8 +35,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   getProductList() {
     // if (this.ProductListService.getFromSessionStorage().length > 0) {
-      this.products = this.ProductListService.getFromSessionStorage();
-      this.ByFilterCategory();
+    this.products = this.ProductListService.getFromSessionStorage();
+    this.ByFilterCategory();
     // } else {
     //   this.ProductListService.getProductListByRealTime()
     //     .snapshotChanges()
@@ -61,16 +61,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ByFilterCategory() {
     if (this.products.length > 0) {
       this.allLength = this.products.length;
-      this.simpleLength = this.products.filter((e) => {
+      this.simpleLength = this.products.filter(e => {
         return e.category == 'simple';
       }).length;
-      this.complexLength = this.products.filter((e) => {
+      this.complexLength = this.products.filter(e => {
         return e.category == 'complex';
       }).length;
     }
   }
 
   filterProducts(cate: string) {
-      this.ProductListService.sendCategory(cate);
+    this.ProductListService.sendCategory(cate);
   }
 }

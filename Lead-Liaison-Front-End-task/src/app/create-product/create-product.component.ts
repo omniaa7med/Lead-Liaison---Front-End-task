@@ -145,8 +145,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.ProductListService.getProductListByRealTime()
       .snapshotChanges()
       .pipe(
-        map((changes) =>
-          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
         ),
         takeUntil(this.unsubscribe$)
       )

@@ -7,8 +7,7 @@
     <button
       class="productList__header_btn"
       type="button"
-      (click)="fetchProductList()"
-    >
+      (click)="fetchProductList()">
       Sync
     </button>
   </div>
@@ -21,7 +20,9 @@
         Sync
       </button>
       <figure class="product__img">
-        <img [src]="product.imageUrl?product.imageUrl:imageSrc" alt="Avatar" />
+        <img
+          [src]="product.imageUrl ? product.imageUrl : imageSrc"
+          alt="Avatar" />
       </figure>
       <div class="product__available" *ngIf="this.productAvailable.length > 0">
         <h4 *ngIf="this.productAvailable[0].id === product.id">Available</h4>
@@ -32,7 +33,6 @@
           {{ product.category }}
         </h4>
         <p class="product__details_price">{{ product.price }} $</p>
-
       </div>
     </div>
     <div class="product productList__add">

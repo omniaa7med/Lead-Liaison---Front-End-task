@@ -49,8 +49,8 @@ export class ProductListService {
       this.getProductListByRealTime()
         .snapshotChanges()
         .pipe(
-          map((changes) =>
-            changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+          map(changes =>
+            changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
           )
         )
         .subscribe((data: any) => {

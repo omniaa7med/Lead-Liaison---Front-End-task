@@ -2,12 +2,12 @@
 //                       productList                        -
 // ----------------------------------------------------------
 .productList {
-  width : 85%;
+  width: 85%;
   margin: 2% auto auto 15%;
 
   &__header {
-    display        : flex;
-    margin         : 2% 2% 0% 2%;
+    display: flex;
+    margin: 2% 2% 0% 2%;
     justify-content: space-between;
 
     &_title {
@@ -15,35 +15,35 @@
     }
 
     &_btn {
-      color           : white;
+      color: white;
       background-color: #ffc400;
-      padding         : 1% 5%;
-      border          : none;
-      border-radius   : 5px;
-      box-shadow      : 0 4px 8px 0 lightgrey;
-      cursor          : pointer;
+      padding: 1% 5%;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 lightgrey;
+      cursor: pointer;
     }
   }
 
   &__add {
-    box-shadow     : none !important;
-    display        : flex;
+    box-shadow: none !important;
+    display: flex;
     justify-content: center;
 
     a {
-      color           : white;
+      color: white;
       background-color: #ffc400;
-      border          : none;
-      border-radius   : 53px;
-      box-shadow      : 0 4px 8px 0 lightgrey;
-      height          : 90px;
-      width           : 90px;
-      display         : flex;
-      justify-content : center;
-      text-decoration : none;
-      font-size       : 50px;
-      font-weight     : 900;
-      align-items     : center;
+      border: none;
+      border-radius: 53px;
+      box-shadow: 0 4px 8px 0 lightgrey;
+      height: 90px;
+      width: 90px;
+      display: flex;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 50px;
+      font-weight: 900;
+      align-items: center;
     }
   }
 }
@@ -52,8 +52,8 @@
 //                 productList Container                    -
 // ----------------------------------------------------------
 .productList__container {
-  display    : flex;
-  flex-wrap  : wrap;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -62,47 +62,46 @@
 // ----------------------------------------------------------
 .product {
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-  width     : 21%;
-  margin    : 2%;
+  width: 21%;
+  margin: 2%;
   text-align: center;
-  position  : relative;
+  position: relative;
 
   &__flag {
     background-color: #24c5dc;
-    box-shadow      : 0 4px 8px 0 lightgrey;
-    color           : white;
-    padding         : 2% 5%;
-    float           : right;
-    clear           : both;
-    margin          : 5%;
-    border          : none;
-    cursor          : pointer;
+    box-shadow: 0 4px 8px 0 lightgrey;
+    color: white;
+    padding: 2% 5%;
+    float: right;
+    clear: both;
+    margin: 5%;
+    border: none;
+    cursor: pointer;
   }
 
   &__img {
-    width : 40%;
+    width: 40%;
     margin: 0 auto;
 
     img {
       max-width: 100%;
-      width    : 100%;
+      width: 100%;
     }
   }
 
   &__details {
     background-color: #f1f5f8;
-    padding         : 7%;
-
+    padding: 7%;
   }
 
   &__available {
-    position  : absolute;
-    top       : 65%;
-    left      : 0;
-    right     : 0;
+    position: absolute;
+    top: 65%;
+    left: 0;
+    right: 0;
     background: #24c5dc;
-    color     : white;
-    opacity   : 0.6;
+    color: white;
+    opacity: 0.6;
   }
 }
 
@@ -111,7 +110,7 @@
 // ----------------------------------------------------------
 @media screen and (max-width: 599px) {
   .productList {
-    width : 100%;
+    width: 100%;
     margin: 2% auto auto 0;
   }
 
@@ -129,7 +128,7 @@
 // ----------------------------------------------------------
 @media screen and (min-width: 600px) {
   .productList {
-    width : 100%;
+    width: 100%;
     margin: 2% auto auto 0;
   }
 
@@ -147,7 +146,7 @@
 // ----------------------------------------------------------
 @media screen and (min-width: 768px) {
   .productList {
-    width : 100%;
+    width: 100%;
     margin: 2% auto auto 0;
   }
 
@@ -165,7 +164,7 @@
 // ----------------------------------------------------------
 @media screen and (min-width: 992px) {
   .productList {
-    width : 85%;
+    width: 85%;
     margin: 2% auto auto 15%;
   }
 

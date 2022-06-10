@@ -3,17 +3,17 @@
 // ----------------------------------------------------------
 
 .sidebar {
-  margin          : 0;
-  padding         : 0;
-  width           : 15%;
+  margin: 0;
+  padding: 0;
+  width: 15%;
   background-color: #f1f1f1;
-  position        : fixed;
-  height          : 100%;
-  overflow        : auto;
-  box-shadow      : 5px 1px 5px lightgrey;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 5px 1px 5px lightgrey;
 
   h3 {
-    padding  : 5%;
+    padding: 5%;
     font-size: 25px;
   }
 }
@@ -23,11 +23,11 @@
 // ----------------------------------------------------------
 
 .sidebar a {
-  display        : block;
-  color          : black;
-  padding        : 5%;
+  display: block;
+  color: black;
+  padding: 5%;
   text-decoration: none;
-  font-size      : 20px;
+  font-size: 20px;
 
   &:hover:not(.active) {
     color: #1566c0;
@@ -39,12 +39,12 @@
 // ----------------------------------------------------------
 @media screen and (max-width: 992px) {
   .sidebar {
-    width      : 100%;
-    height     : auto;
-    position   : relative;
-    display    : flex;
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
     align-items: baseline;
-    text-align : center;
+    text-align: center;
 
     h3 {
       padding: 2%;
@@ -52,7 +52,7 @@
   }
 
   .sidebar a {
-    float  : left;
+    float: left;
     padding: 2%;
   }
 }

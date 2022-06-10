@@ -47,8 +47,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .getProductListByRealTime()
       .snapshotChanges()
       .pipe(
-        map((changes) =>
-          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
         ),
         takeUntil(this.unsubscribe$)
       )
@@ -81,10 +81,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   /* ------------------------------------------------------- */
 
   filterProductsByCategory() {
-    this.productService.cateType.subscribe((e) => {
+    this.productService.cateType.subscribe(e => {
       this.products = this.productService.getFromSessionStorage();
       if (e !== null && e !== 'all' && this.products.length > 0) {
-        this.products = this.products.filter((prod) => prod.category === e);
+        this.products = this.products.filter(prod => prod.category === e);
       }
     });
   }
@@ -109,13 +109,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .getProductListByRealTime()
       .snapshotChanges()
       .pipe(
-        map((changes) =>
-          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe((data) => {
-        this.productAvailable = data.filter((e) => {
+      .subscribe(data => {
+        this.productAvailable = data.filter(e => {
           return e.key === product.key;
         });
       });

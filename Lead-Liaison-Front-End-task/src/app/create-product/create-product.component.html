@@ -16,8 +16,7 @@
             id="file"
             type="file"
             (change)="onFileChange($event)"
-            title="upload product image"
-          />
+            title="upload product image" />
         </div>
       </div>
       <!---------------------------------------------------------->
@@ -31,8 +30,7 @@
           name="name"
           formControlName="name"
           placeholder="Enter Name of Product"
-          required
-        />
+          required />
       </div>
       <div *ngIf="name.invalid && (name.dirty || name.touched)">
         <div *ngIf="name.errors?.['required']">This field is required.</div>
@@ -61,8 +59,7 @@
           id="slug"
           name="slug"
           formControlName="slug"
-          placeholder="Enter Slug of Product"
-        />
+          placeholder="Enter Slug of Product" />
       </div>
       <div *ngIf="slug.invalid && (slug.dirty || slug.touched)">
         <div *ngIf="slug.errors?.['required']">This field is required.</div>
@@ -77,8 +74,7 @@
           id="price"
           name="price"
           formControlName="price"
-          placeholder="Enter Price of Product"
-        />
+          placeholder="Enter Price of Product" />
       </div>
       <div *ngIf="price.invalid && (price.dirty || price.touched)">
         <div *ngIf="price.errors?.['required']">This field is required.</div>
